@@ -2,6 +2,18 @@
 
 This is a React-based Movie Library application that allows users to browse, search, and explore movies and TV shows using data from [The Movie Database (TMDb) API](https://www.themoviedb.org/documentation/api). Users can view detailed information, images, trailers, and similar titles for each movie or TV show. Additionally, users can add and view reviews for movies and TV shows, with review data managed by a custom .NET backend API.
 
+---
+
+## 📺 Project Demo Videos
+
+- **Full Project Overview:**  
+  [Watch Movie Library.mp4](./media/Movie%20Library.mp4)
+
+- **Add Review Demo (Movie/TV Series):**  
+  [Watch Movie Library - Review.mp4](./media/Movie%20Library%20-%20Review.mp4)
+
+---
+
 ## Folder Structure
 
 ```
