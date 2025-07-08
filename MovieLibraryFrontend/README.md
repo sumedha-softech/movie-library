@@ -1,6 +1,6 @@
 # Movie Library Frontend
 
-This is a React-based Movie Library application that allows users to browse, search, and explore movies and TV shows using data from [The Movie Database (TMDb) API](https://www.themoviedb.org/documentation/api). Users can view detailed information, images, trailers, and similar titles for each movie or TV show. Additionally, users can add and view reviews for movies and TV shows, with review data managed by a custom .NET backend API.
+This is the **frontend** for the Movie Library application, built with React. It allows users to browse, search, and explore movies and TV shows using data from [The Movie Database (TMDb) API](https://www.themoviedb.org/documentation/api). Users can view detailed information, images, trailers, and similar titles for each movie or TV show. Review features require a separate backend API (not included here).
 
 ---
 
@@ -48,26 +48,9 @@ VITE_APP_REVIEW_API_BASE_URL=<your_dotnet_project_url>
 - `VITE_APP_IMAGE_URL`: Base URL for images.
 - `VITE_APP_REVIEW_API_BASE_URL`: Your backend API for reviews.
 
-## Running the Project
+## Running the Frontend
 
-### 1. Backend
-
-1. Go to the backend folder:
-   ```sh
-   cd ../MovieLibraryBackend
-   ```
-2. Start the backend:
-   ```sh
-   dotnet restore
-   dotnet run
-   ```
-
-### 2. Frontend
-
-1. Go to the frontend folder:
-   ```sh
-   cd ../MovieLibraryFrontend
-   ```
+1. Open a terminal in the `MovieLibraryFrontend` folder.
 2. Install dependencies:
    ```sh
    npm install
@@ -77,12 +60,12 @@ VITE_APP_REVIEW_API_BASE_URL=<your_dotnet_project_url>
    ```sh
    npm run dev
    ```
-   (Default: http://localhost:5173)
+   The app will be available at [http://localhost:5173](http://localhost:5173) by default.
 
-### 3. Running Together or Separately
+### Using Review Features
 
-- **Together:** Start both backend and frontend as above. The frontend will use the backend for reviews.
-- **Frontend Only:** If you only want TMDb features (no reviews), you can run just the frontend. Review features will be disabled or show errors if the backend is not running.
+- If you want to use review features, you must also run the backend API and set `VITE_APP_REVIEW_API_BASE_URL` accordingly.
+- If the backend is not running or not configured, review features will be disabled or show errors.
 
 ---
 
@@ -128,32 +111,19 @@ VITE_APP_REVIEW_API_BASE_URL=<your_dotnet_project_url>
 ## API Limitations & UI Behavior
 
 - **Genre Filtering:**  
-  - To filter by genre, the app uses the `/discover/movie` and `/discover/tv` endpoints from TMDb.
-  - The `/search` endpoint does not support filtering by genre, and the `/discover` endpoint does not support searching by keyword.
-  - This means you can either filter by genre or search by keyword, but not both at the same time due to TMDb API limitations.
+  - Filtering by genre uses the `/discover/movie` and `/discover/tv` endpoints.
+  - You cannot combine genre filtering with keyword search.
 
 - **Sorting:**  
-  - Sorting by "Popular" or "Top Rated" is only available via the `/movie/popular`, `/movie/top_rated`, `/tv/popular`, and `/tv/top_rated` endpoints.
-  - The `/search` endpoint does not support sorting, and the `/discover` endpoint does not provide direct sorting for "Popular" or "Top Rated".
-  - Therefore, you cannot combine sorting with search or genre filtering.
+  - Sorting is only available via the "Popular" or "Top Rated" endpoints.
+  - Cannot be combined with search or genre filtering.
 
 - **UI Behavior:**  
-  - When a genre is selected, the sort and search features are disabled.
-  - When a sort option is selected, the genre and search features are disabled.
-  - When searching, both genre and sort options are disabled.
-  - This ensures the UI only allows combinations supported by the TMDb API.
+  - Only one of search, genre, or sort can be active at a time, matching TMDb API capabilities.
 
 - **Pagination:**  
-  - TMDb API supports pagination for listing movies and TV shows, but only for pages 1 to 500.
-  - If you request a page number greater than 500, TMDb returns a 400 status code with the following response:
-    ```json
-    {
-      "success": false,
-      "status_code": 22,
-      "status_message": "Invalid page: Pages start at 1 and max at 500. They are expected to be an integer."
-    }
-    ```
-  - When the page number exceeds 500, this message is shown in the UI to inform the user.
+  - TMDb API supports pagination for pages 1 to 500 only.
+  - If you request a page number greater than 500, an error message is shown.
 
 ---
 

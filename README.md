@@ -1,231 +1,142 @@
-# MovieLibraryApi
+# Movie Library
 
-MovieLibraryApi is a .NET 8 Web API project designed to manage user reviews for movies and TV shows. It provides endpoints to save and retrieve reviews, supporting integration with frontend applications for a complete review experience.
+This is a React-based Movie Library application that allows users to browse, search, and explore movies and TV shows using data from [The Movie Database (TMDb) API](https://www.themoviedb.org/documentation/api). Users can view detailed information, images, trailers, and similar titles for each movie or TV show. Additionally, users can add and view reviews for movies and TV shows, with review data managed by a custom .NET backend API.
+
+## 📺 Project Demo
+
+- **Full Project Overview:**  
+  ![Watch Movie Library Project](./doc/movie-library.gif)
+  [Watch Preview](./doc/movie-library.mp4)
+
+- **Add Review Demo (Movie/TV Series):**  
+  ![Watch Movie Library Project](./doc/movie-library-review.gif)
+  [Watch Preview](./doc/movie-library-review.mp4)
 
 ## Features
 
-- **Save Reviews:**  
-  Users can submit reviews (first name, last name, comment) for both movies and TV shows.
+- **Browse Movies & TV Shows:**  
+  View a paginated list of popular movies and TV shows fetched from TMDb.
 
-- **Get Reviews:**  
-  Retrieve all reviews for a specific movie or TV show.
+- **Search:**  
+  Search for movies or TV shows by title.
 
-- **RESTful API:**  
-  Clean, RESTful endpoints for easy integration.
+- **Genres:**  
+  - View genres for movies and TV shows, fetched from the TMDb API.
+  - Click on any genre to see a list of movies or TV shows belonging to that genre (using the TMDb `/discover` endpoint).
+  - **Note:** You cannot search for movies or TV shows by both genre and keyword at the same time, because the TMDb API does not support searching by genre in the `/search` endpoint. Genre-based filtering is only available via the `/discover` endpoint, which does not support keyword search.
 
-- **Validation:**  
-  Input validation ensures reviews meet required criteria.
+- **Sort Options:**  
+  - Sort movies and TV shows by "Popular" or "Top Rated" using the TMDb `/movie/popular`, `/movie/top_rated`, `/tv/popular`, and `/tv/top_rated` endpoints.
+  - **Note:** Sorting by "Popular" or "Top Rated" cannot be combined with search or genre filtering, because the `/search` endpoint does not support sorting, and the `/discover` endpoint does not provide direct access to these sort types.
 
-- **Database Integration:**  
-  Uses Entity Framework Core with SQL Server for persistent storage.
+- **Movie/TV Show Details:**  
+  View detailed information including title, release date, rating, genres, description, and poster/backdrop images.
 
-- **Swagger/OpenAPI:**  
-  Built-in API documentation for easy testing and exploration.
+- **Image Gallery:**  
+  Browse a gallery of images/posters for each movie or TV show.
 
-- **Integrated Frontend Build & Publish:**  
-  The solution contains both the API and frontend projects. The frontend project is automatically built and published into the `wwwroot` folder of the API project during the .NET publish process. This is handled by a custom MSBuild target in `MovieLibraryApi.csproj`, so you do **not** need to build or copy the frontend manually.
+- **Similar Titles:**  
+  Discover similar movies or TV shows based on the current selection.
+
+- **Watch Trailers:**  
+  Watch official trailers directly via YouTube links.
+
+- **User Reviews:**  
+  - View user-submitted reviews for each movie or TV show.
+  - Add your own review (name and comment) for any title.
+  - Reviews are stored and retrieved from a custom .NET backend API.
+
+- **Share Functionality:**  
+  Share movie or TV show details via social media or by copying a direct link.
 
 ## Project Structure
 
 ```
-MovieLibraryBackend/
+movie-library/
 │
-├── Controllers/
-│   ├── ReviewMovieController.cs
-│   └── ReviewTvSeriesController.cs
+├── doc/
+│   ├── movie-library-review.gif
+│   └── ...
 │
-├── Interface/
-│   ├── IMovieService.cs
-│   └── ITvSeriesService.cs
+├── MovieLibraryBackend/
+│   ├── Controllers
+│   └── ...
 │
-├── Mapping/
-│   └── MappingProfile.cs
+├── MovieLibraryFrontend/
+│   ├── src
+│   └── ...
 │
-├── Middlewares/
-│   └── ExceptionMiddleware.cs
-│
-├── Models/
-│   ├── ReviewMovieDto.cs
-│   ├── ReviewTvSeriesDto.cs
-│   └── ResponseModel.cs
-│
-├── Persistence/
-│   ├── Context
-│   │   └── AppDbContext.cs
-│   ├── Entities
-│   │   ├── ReviewTvSeriesDto.cs
-│   │   └── ResponseModel.cs
-│   └── Migrations
-│       └── ... (EF Core migration files)
-│
-├── Services/
-│   ├── MovieService.cs
-│   └── TvSeriesService.cs
-│
-├── wwwroot/
-│   └── ... (Frontend build output)
-│
-├── MovieLibraryApi.csproj
-├── Program.cs
-├── appsettings.json
+├── .gitattributes
+├── .gitignore
 └── README.md
 ```
 
-- **Controllers:**  
-  - `ReviewMovieController`: Handles movie review endpoints.
-  - (Similar controller exists for TV show reviews.)
+## Running the Project
 
-- **Services:**  
-  - `IMovieService` / `MovieService`: Business logic for movie reviews.
-  - `ITvSeriesService` / `TvSeriesService`: Business logic for TV show reviews.
+### 1. Backend
 
-- **Data Access:**  
-  - `AppDbContext`: Entity Framework Core context managing review entities and database operations.
+1. Go to the backend folder:
+   ```sh
+   cd ../MovieLibraryBackend
+   ```
+2. Start the backend:
+   ```sh
+   dotnet restore
+   dotnet run
+   ```
 
-- **Models:**  
-  - `ReviewMovieDto`: DTO for review submission.
-  - `ResponseModel`: Standard API response wrapper.
+### 2. Frontend
 
-## Database Setup
+1. Go to the frontend folder:
+   ```sh
+   cd ../MovieLibraryFrontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Set up your `.env.production` or `.env` file as shown above.
+4. Start the frontend:
+   ```sh
+   npm run dev
+   ```
+   (Default: http://localhost:5173)
 
-### 1. Create the Database in MS SQL Server
+### 3. Running Together or Separately
 
-- Open SQL Server Management Studio (SSMS).
-- Connect to your SQL Server instance.
-- Run the following SQL to create a new database (replace `MovieLibraryDb` with your preferred name):
+- **Together:** Start both backend and frontend as above. The frontend will use the backend for reviews.
+- **Frontend Only:** If you only want TMDb features (no reviews), you can run just the frontend. Review features will be disabled or show errors if the backend is not running.
 
-    ```sql
-    CREATE DATABASE MovieLibraryDb;
-    ```
+---
 
-### 2. Set the Connection String
+**Note:** Replace `<your_tmdb_token>` with your actual TMDb API token.
 
-- Open `appsettings.json`.
-- Update the `DefaultConnection` string with your SQL Server details:
+## API Limitations & UI Behavior
 
+- **Genre Filtering:**  
+  - To filter by genre, the app uses the `/discover/movie` and `/discover/tv` endpoints from TMDb.
+  - The `/search` endpoint does not support filtering by genre, and the `/discover` endpoint does not support searching by keyword.
+  - This means you can either filter by genre or search by keyword, but not both at the same time due to TMDb API limitations.
+
+- **Sorting:**  
+  - Sorting by "Popular" or "Top Rated" is only available via the `/movie/popular`, `/movie/top_rated`, `/tv/popular`, and `/tv/top_rated` endpoints.
+  - The `/search` endpoint does not support sorting, and the `/discover` endpoint does not provide direct sorting for "Popular" or "Top Rated".
+  - Therefore, you cannot combine sorting with search or genre filtering.
+
+- **UI Behavior:**  
+  - When a genre is selected, the sort and search features are disabled.
+  - When a sort option is selected, the genre and search features are disabled.
+  - When searching, both genre and sort options are disabled.
+  - This ensures the UI only allows combinations supported by the TMDb API.
+
+- **Pagination:**  
+  - TMDb API supports pagination for listing movies and TV shows, but only for pages 1 to 500.
+  - If you request a page number greater than 500, TMDb returns a 400 status code with the following response:
     ```json
-    // appsettings.json
     {
-      "ConnectionStrings": {
-        "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=MovieLibraryDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-      }
-      // ...other settings...
+      "success": false,
+      "status_code": 22,
+      "status_message": "Invalid page: Pages start at 1 and max at 500. They are expected to be an integer."
     }
     ```
-
-    - Replace `YOUR_SERVER_NAME` with your SQL Server instance name.
-    - If using SQL authentication, use:  
-      `Server=YOUR_SERVER_NAME;Database=MovieLibraryDb;User Id=YOUR_USER;Password=YOUR_PASSWORD;`
-
-### 3. Install Required Packages
-
-If you need to set up the project locally, install these NuGet packages (if not already present):
-
-- Microsoft.EntityFrameworkCore
-- Microsoft.EntityFrameworkCore.SqlServer
-- Microsoft.EntityFrameworkCore.Tools
-
-You can install them using the terminal:
-
-```sh
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-```
-
-### 4. Run EF Core Migrations
-
-To create the database tables automatically, run these commands in the project directory:
-
-```sh
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-```
-
-- This will create the required tables in your database.
-
----
-
-### If Deploying Directly to IIS (Without Running Migrations Locally)
-
-If you publish and deploy the output folder directly to IIS, you must manually create the database and tables.
-
-#### Table Schemas
-
-**ReviewMovie Table:**
-
-```sql
-CREATE TABLE ReviewMovie (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    MovieId INT NOT NULL,
-    FirstName NVARCHAR(100) NOT NULL,
-    LastName NVARCHAR(100) NOT NULL,
-    Comment NVARCHAR(MAX) NOT NULL,
-    CreatedAt DATETIME2 NOT NULL
-);
-```
-
-**ReviewTvSeries Table:**
-
-```sql
-CREATE TABLE ReviewTvSeries (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    TvSeriesId INT NOT NULL,
-    FirstName NVARCHAR(100) NOT NULL,
-    LastName NVARCHAR(100) NOT NULL,
-    Comment NVARCHAR(MAX) NOT NULL,
-    CreatedAt DATETIME2 NOT NULL
-);
-```
-
-- Make sure your connection string in `appsettings.json` points to this database.
-
----
-
-## Publishing & Deployment
-
-### Publishing the Application
-
-**No manual frontend build or copy is required.**  
-When you publish the .NET API project (using Visual Studio or the `dotnet publish` command), the frontend project is automatically built and its output is copied to the `wwwroot` folder. This is configured in the `MovieLibraryApi.csproj` file:
-
-- The `BuildFrontend` MSBuild target runs before publish, building the frontend and copying its output.
-- The published output contains both the API and the frontend, ready for deployment.
-
-### Deploying to IIS
-
-1. **Publish Output:**  
-   Deploy the published output (including the `wwwroot` folder with frontend files) to your IIS server.
-
-2. **Create Application Pool:**  
-   - In IIS Manager, create a new Application Pool.
-   - Set the **.NET CLR version** to **No Managed Code** (since ASP.NET Core runs in a separate process and does not use IIS's managed pipeline).
-
-3. **Create IIS Site:**  
-   - Point the site�s physical path to your published output folder.
-   - Assign the site to the application pool you created.
-
-4. **Start the Site:**  
-   - Ensure the site is started and accessible.
-
-## Example Endpoints
-
-- `GET /api/movie/{movieId}/reviews`  
-  Retrieve all reviews for a movie.
-
-- `POST /api/movie/{movieId}/reviews`  
-  Submit a new review for a movie.
-
-- (Similar endpoints exist for TV shows.)
-
-## Technologies Used
-
-- .NET 8
-- Entity Framework Core
-- SQL Server
-- ASP.NET Core Web API
-- Vite (or other SPA frontend, as configured)
-
-## License
-
-This project is for educational and demonstration purposes.
+  - When the page number exceeds 500, this message is shown in the UI to inform the user.
