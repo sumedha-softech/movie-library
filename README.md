@@ -5,6 +5,7 @@ This is a React-based Movie Library application that allows users to browse, sea
 ## 📺 Project Demo
 
 - **Full Project Overview:**  
+  ![Watch Movie Library Project](./doc/movie-library.gif)
   [Watch Preview](./doc/movie-library.mp4)
 
 - **Add Review Demo (Movie/TV Series):**  
