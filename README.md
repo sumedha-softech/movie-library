@@ -6,11 +6,11 @@ This is a React-based Movie Library application that allows users to browse, sea
 
 - **Full Project Overview:**  
   ![Watch Movie Library Project](./doc/movie-library.gif)
-  [Watch Preview](https://raw.githubusercontent.com/sumedha-softech/movie-library/doc/movie-library.mp4)
+  [Watch Preview](https://raw.githubusercontent.com/sumedha-softech/movie-library/main/doc/movie-library.mp4)
 
 - **Add Review Demo (Movie/TV Series):**  
   ![Watch Movie Library Project](./doc/movie-library-review.gif)
-  [Watch Preview](https://raw.githubusercontent.com/sumedha-softech/movie-library/doc/movie-library-review.mp4)
+  [Watch Preview](https://raw.githubusercontent.com/sumedha-softech/movie-library/main/doc/movie-library-review.mp4)
 
 ## Features
 
