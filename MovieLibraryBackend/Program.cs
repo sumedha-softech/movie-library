@@ -69,6 +69,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapFallbackToFile("/404.html");
+app.MapFallbackToFile("index.html");
 
 app.Run();
