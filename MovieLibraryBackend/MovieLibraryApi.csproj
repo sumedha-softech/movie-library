@@ -13,7 +13,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.SpaProxy">
-			<Version>8.*-*</Version>
+			<Version>8.0.18</Version>
 		</PackageReference>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
@@ -55,9 +55,7 @@
 			<DistFiles Include="$(SpaRoot)\dist\**\*" />
 		</ItemGroup>
 
-		<Copy SourceFiles="@(DistFiles)"
-			  DestinationFolder="$(ProjectDir)wwwroot\%(RecursiveDir)"
-			  SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(DistFiles)" DestinationFolder="$(ProjectDir)wwwroot\%(RecursiveDir)" SkipUnchangedFiles="true" />
 	</Target>
 
 
