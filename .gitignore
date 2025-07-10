@@ -363,4 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 #Ignore published frontend files
-wwwroot/
+MovieLibraryBackend/wwwroot/assets
+MovieLibraryBackend/wwwroot/index.html

@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieLibraryApi.Persistence.Entities;
 
-namespace MovieLibraryApi.Persistence.Data;
+namespace MovieLibraryApi.Persistence.Context;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)    { }
+	public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<ReviewMovie> ReviewMovie { get; set; }
+	public DbSet<ReviewMovie> ReviewMovie { get; set; }
     public DbSet<ReviewTvSeries> ReviewTvSeries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -9,8 +9,7 @@ namespace MovieLibraryApi.Controllers;
 [Route("api/tv")]
 public class ReviewTvSeriesController(ITvSeriesService tvService) : ControllerBase
 {
-	[HttpGet]
-	[Route("{tvId}/reviews")]
+	[HttpGet("{tvId}/reviews")]
 	public async Task<ActionResult<ResponseModel>> GetTvReviewAsync(int tvId)
 	{
 		if (tvId <= 0)
@@ -24,8 +23,7 @@ public class ReviewTvSeriesController(ITvSeriesService tvService) : ControllerBa
 		return Ok(response);
 	}
 
-	[HttpPost]
-	[Route("{tvId}/reviews")]
+	[HttpPost("{tvId}/reviews")]
 	public async Task<ActionResult<ResponseModel>> SaveReviewAsync(int tvId, [FromBody] ReviewMovieDto request)
 	{
 		if (tvId <= 0)
