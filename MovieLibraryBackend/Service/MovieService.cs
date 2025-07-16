@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieLibraryApi.Interface;
 using MovieLibraryApi.Model;
 using MovieLibraryApi.Model.Dtos;
-using MovieLibraryApi.Persistence.Data;
+using MovieLibraryApi.Persistence.Context;
 using MovieLibraryApi.Persistence.Entities;
 
 namespace MovieLibraryApi.Service;

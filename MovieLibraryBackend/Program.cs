@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieLibraryApi.Interface;
 using MovieLibraryApi.Mapping;
 using MovieLibraryApi.Middlewares;
-using MovieLibraryApi.Persistence.Data;
+using MovieLibraryApi.Persistence.Context;
 using MovieLibraryApi.Service;
 
 const string corsPolicyName = "AllowLocalFrontend";
@@ -11,10 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException("Connection string not found.", nameof(connectionString));
 
-
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+	options.UseSqlServer(connectionString);
 });
 
 // Register Servie & Interface
@@ -27,21 +26,20 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(corsPolicyName,
-        policy =>
-        {
-            policy.WithOrigins(allowedOrigins!)
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+	options.AddPolicy(corsPolicyName,
+		policy =>
+		{
+			policy.WithOrigins(allowedOrigins!)
+				  .AllowAnyHeader()
+				  .AllowAnyMethod();
+		});
 });
-
 
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); 
+builder.Services.AddSwaggerGen();
 
 // Enable console logging
 builder.Logging.ClearProviders();
@@ -59,8 +57,8 @@ app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
