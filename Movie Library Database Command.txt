@@ -1,0 +1,25 @@
+-- Create the database
+CREATE DATABASE MovieLibraryDb;
+
+-- Select the database
+USE MovieLibraryDb;
+
+-- Create ReviewMovie table
+CREATE TABLE ReviewMovie (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    MovieId INT NOT NULL,
+    FirstName NVARCHAR(100) NOT NULL,
+    LastName NVARCHAR(100) NOT NULL,
+    Comment NVARCHAR(MAX) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL
+);
+
+-- Create ReviewTvSeries table
+CREATE TABLE ReviewTvSeries (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    TvSeriesId INT NOT NULL,
+    FirstName NVARCHAR(100) NOT NULL,
+    LastName NVARCHAR(100) NOT NULL,
+    Comment NVARCHAR(MAX) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL
+);
