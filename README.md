@@ -4,6 +4,8 @@ This is a React-based Movie Library application that allows users to browse, sea
 
 ## 📺 Project Demo
 
+  #Live Demo URL: [movie-library](https://movie-list.sumedhasoftech.com/)
+
 - **Full Project Overview:**  
   ![Watch Movie Library Project](./doc/movie-library.gif)
   [Watch Preview](https://raw.githubusercontent.com/sumedha-softech/movie-library/main/doc/movie-library.mp4)
